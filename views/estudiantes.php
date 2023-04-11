@@ -107,6 +107,9 @@
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
     $(document).ready(function (){
       
@@ -135,7 +138,21 @@
       }
 
       function registrarEstudiante(){
-        
+        Swal.fire({
+          icon: 'question',
+          title: 'Matrículas',
+          text: '¿Está seguro de registrar al estudiante?',
+          footer: 'Desarrollado con PHP',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#3498DB',
+          showCancelButton: true,
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          //Identificando acción del usuario
+          if (result.isConfirmed){
+            console.log("Guardado datos...");
+          }
+        });
       }
 
       $("#guardar-estudiante").click(registrarEstudiante);
