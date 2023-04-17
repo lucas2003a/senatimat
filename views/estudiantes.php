@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <title>Title</title>
@@ -11,6 +11,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
+  <!-- Iconos de Bootstrap 5 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+
+  <!-- Lightbox CSS -->
+  <link rel="stylesheet" href="../dist/lightbox2/src/css/lightbox.css">
+
 </head>
 
 <body>
@@ -19,6 +25,26 @@
   <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-estudiante">
     Launch
   </button>
+
+  <div class="container">
+    <table id="tabla-estudiantes" class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Apellidos</th>
+          <th>Nombres</th>
+          <th>Tipo</th>
+          <th>Documento</th>
+          <th>Nacimiento</th>
+          <th>Carrera</th>
+          <th>Operaciones</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
   
   <!-- Modal Body -->
   <div class="modal fade" id="modal-estudiante" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -112,6 +138,9 @@
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <!-- Lightbox JS -->
+  <script src="../dist/lightbox2/src/js/lightbox.js"></script>
+
   <script>
     $(document).ready(function (){
       
@@ -186,6 +215,18 @@
         });
       }
 
+      function mostrarEstudiantes(){
+        $.ajax({
+          url: '../controllers/estudiante.controller.php',
+          type: 'POST',
+          data: {operacion: 'listar'},
+          dataType: 'text',
+          success: function(result){
+            $("#tabla-estudiantes tbody").html(result);
+          }
+        });
+      }
+
       $("#guardar-estudiante").click(preguntarRegistro);
 
       //Al cambiar una escuela, se actualizará las carreras
@@ -213,6 +254,9 @@
         obtenerSedes();
         obtenerEscuelas();
       });
+
+      //Funciones de carga automática
+      mostrarEstudiantes();
 
     });
   </script>

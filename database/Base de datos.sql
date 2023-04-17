@@ -15,6 +15,10 @@ INSERT INTO escuelas (escuela) VALUES
 
 SELECT * FROM escuelas ORDER BY 1;
 
+-- Agregando una nueva escuela
+INSERT INTO escuelas (escuela) VALUES
+	('Gastronomía');
+
 -- ***** SEGUNDA TABLA ***** --
 
 CREATE TABLE carreras

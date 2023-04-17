@@ -18,6 +18,7 @@ BEGIN
 		WHERE EST.estado = '1';
 END $$
 
+CALL spu_estudiantes_listar();
 
 DELIMITER $$
 CREATE PROCEDURE spu_estudiantes_registrar
