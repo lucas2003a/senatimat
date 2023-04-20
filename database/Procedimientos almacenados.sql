@@ -185,3 +185,5 @@ CREATE PROCEDURE spu_cargos_listar()
 BEGIN
 	SELECT * FROM cargos ORDER BY 2;
 END $$
+CALL spu_cargos_listar;
+

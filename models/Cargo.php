@@ -5,7 +5,7 @@ require_once 'Conexion.php';
 class Cargo extends Conexion{
     private $accesoBD;
 
-    public function __CONTRUCT(){
+    public function __CONSTRUCT(){
         $this->accesoBD = parent::getConexion();
     }
 

@@ -1,10 +1,38 @@
 <?php
 
-require_once '../models/Colabrador.php';
+require_once '../models/Colaborador.php';
 
 if ($_POST['operacion']){
 
     $colaborador = new Colaborador();
+
+    if ($_POST['operacion'] == 'registrar'){
+        $datosGuardar = [
+            "apellidos"     =>  $_POST['apellidos'],
+            "nombres"       =>  $_POST['nombres'],
+            "idcargo"       =>  $_POST['idcargo'],
+            "idsede"        =>  $_POST['idsede'],
+            "telefono"      =>  $_POST['telefono'],
+            "direccion"     =>  $_POST['direccion'],
+            "tipocontrato"  =>  $_POST['tipocontrato'],
+            "cv"            =>  ''
+        ];
+
+        if (isset($_FILES['cv'])){
+
+            $rutaDestino = '../views/pdf/documents/';
+            $fechaActual = date('c');
+            $nombreArchivo = sha1($fechaActual) .   ".pdf";
+            $rutaDestino .= $nombreArchivo;
+
+
+            if (move_uploaded_file($_FILES['cv']['tmp_name'],$rutaDestino)){
+                $datosGuardar['cv'] = $nombreArchivo;
+            }
+        }
+
+        $colaborador->registrarColaborador($datosGuardar);
+    }
 
     if ($_POST['operacion'] == 'listar'){
         $data = $colaborador->listarColaborador();

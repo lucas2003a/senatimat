@@ -25,7 +25,7 @@
 <body>
   
   <!-- Modal trigger button -->
-  <button type="button" class="btn btn-success btn-md mt-3 ms-5" data-bs-toggle="modal" data-bs-target="#modal-estudiante">
+  <button type="button" class="btn btn-success btn-md mt-3 ms-5" data-bs-toggle="modal" data-bs-target="#modal-colaborador">
     Registro Colaboradores
   </button>
 
@@ -105,11 +105,11 @@
             <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="telefono" class="form-label">Teléfono:</label>
-                <input type="date" class="form-control form-control-sm" id="telefono">
+                <input type="text" class="form-control form-control-sm" id="telefono">
               </div>
               <div class="mb-3 col-md-6">
                 <label for="direccion" class="form-label">Dirección:</label>
-                <input type="date" class="form-control form-control-sm" id="direccion">
+                <input type="text" class="form-control form-control-sm" id="direccion">
               </div>
             </div>
             <div class="row">
@@ -181,30 +181,30 @@
         });
       }
 
-      function registrarEstudiante(){
+      function registrarColaborador(){
         //Enviaremos los datos dentro de un OBJETO
         var formData = new FormData();
 
         formData.append("operacion", "registrar");
         formData.append("apellidos", $("#apellidos").val());
         formData.append("nombres", $("#nombres").val());
-        formData.append("tipodocumento", $("#tipodocumento").val());
-        formData.append("nrodocumento", $("#nrodocumento").val());
-        formData.append("fechanacimiento", $("#fechanacimiento").val());
-        formData.append("idcarrera", $("#carrera").val());
+        formData.append("idcargo", $("#cargo").val());
         formData.append("idsede", $("#sede").val());
-        formData.append("fotografia", $("#fotografia")[0].files[0]);
+        formData.append("telefono", $("#telefono").val());
+        formData.append("direccion", $("#direccion").val());
+        formData.append("tipocontrato", $("#tipocontrato").val());
+        formData.append("cv", $("#cv")[0].files[0]);
 
         $.ajax({
-          url: '../controllers/estudiante.controller.php',
+          url: '../controllers/colaborador.controller.php',
           type: 'POST',
           data: formData,
           contentType: false,
           processData: false,
           cache: false,
           success: function(){
-            $("#formulario-estudiantes")[0].reset();
-            $("#modal-estudiante").modal("hide");
+            $("#formulario-colaboradores")[0].reset();
+            $("#modal-colaborador").modal("hide");
             alert("Guardado correctamente");
           }
         });
@@ -213,8 +213,8 @@
       function preguntarRegistro(){
         Swal.fire({
           icon: 'question',
-          title: 'Matrículas',
-          text: '¿Está seguro de registrar al estudiante?',
+          title: 'Colaboradores',
+          text: '¿Está seguro de registrar al colaborador?',
           footer: 'Desarrollado con PHP',
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#3498DB',
@@ -223,7 +223,7 @@
         }).then((result) => {
           //Identificando acción del usuario
           if (result.isConfirmed){
-            registrarEstudiante();
+            registrarColaborador();
           }
         });
       }
