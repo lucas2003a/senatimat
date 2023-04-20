@@ -122,8 +122,8 @@
                 </select>
               </div>
               <div class="mb-3">
-                <label for="cv">Curriculum Vitae:</label>
-                <input type="file" id="cv" name= "cv" accept=".pdf" class="form-control form-control-sm">
+                <label for="cv" class="form-label">Curriculum Vitae:</label>
+                <input type="file" id="cv" accept=".pdf" class="form-control form-control-sm">
               </div>
             </div>
           </form>
