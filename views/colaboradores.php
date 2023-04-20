@@ -25,8 +25,8 @@
 <body>
   
   <!-- Modal trigger button -->
-  <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-estudiante">
-    Launch
+  <button type="button" class="btn btn-success btn-md mt-3 ms-5" data-bs-toggle="modal" data-bs-target="#modal-estudiante">
+    Registro Colaboradores
   </button>
 
   <div class="container">
@@ -35,16 +35,26 @@
         <div class="table-responsibe">
           <table class="table table-striped table-sm" id="tabla-colaboradores">
             <colgroup>
+              <col wdth = "2%">
+              <col wdth = "15%">
+              <col wdth = "10%">
+              <col wdth = "11%">
+              <col wdth = "12%">
+              <col wdth = "13%">
+              <col wdth = "14%">
+              <col wdth = "10%">
+              <col wdth = "10%">
             </colgroup>
             <thead>
               <tr>
                 <th>#</th>
                 <th>Apellidos</th>
                 <th>Nombres</th>
-                <th>Tipo</th>
-                <th>Documento</th>
-                <th>Nacimiento</th>
-                <th>Carrera</th>
+                <th>Cargo</th>
+                <th>Sede</th>
+                <th>Telefono</th>
+                <th>Direccion</th>
+                <th>Tipo contrato</th>
                 <th>Operaciones</th>
               </tr>
             </thead>
@@ -58,16 +68,16 @@
   </div>
   
   <!-- Modal Body -->
-  <div class="modal fade" id="modal-estudiante" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+  <div class="modal fade" id="modal-colaborador" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-secondary text-light">
-          <h5 class="modal-title" id="modalTitleId">Registro de estudiantes</h5>
+          <h5 class="modal-title" id="modalTitleId">Registro de colaboradores</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           
-          <form action="" autocomplete="off" id="formulario-estudiantes" enctype="multipart/form-data">
+          <form action="" autocomplete="off" id="formulario-colaboradores" enctype="multipart/form-data">
             <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="apellidos" class="form-label">Apellidos:</label>
@@ -80,22 +90,10 @@
             </div>
             <div class="row">
               <div class="mb-3 col-md-6">
-                <label for="tipodocumento" class="form-label">Tipo documento:</label>
-                <select name="tipodocumento" id="tipodocumento" class="form-select form-select-sm">
+                <label for="cargo" class="form-label">Cargo:</label>
+                <select name="cargo" id="cargo" class="form-select form-select-sm">
                   <option value="">Seleccione</option>
-                  <option value="D">DNI</option>
-                  <option value="C">Carnet de Extranjería</option>
                 </select>
-              </div>
-              <div class="mb-3 col-md-6">
-                <label for="nrodocumento" class="form-label">Nro documento:</label>
-                <input type="text" class="form-control form-control-sm" id="nrodocumento">
-              </div>
-            </div>
-            <div class="row">
-              <div class="mb-3 col-md-6">
-                <label for="fechanacimiento" class="form-label">Fecha nacimiento:</label>
-                <input type="date" class="form-control form-control-sm" id="fechanacimiento">
               </div>
               <div class="mb-3 col-md-6">
                 <label for="sede" class="form-label">Sede:</label>
@@ -106,29 +104,33 @@
             </div>
             <div class="row">
               <div class="mb-3 col-md-6">
-                <label for="escuela" class="form-label">Escuela:</label>
-                <select name="escuela" id="escuela" class="form-select form-select-sm">
-                  <option value="">Seleccione</option>
-                </select>
+                <label for="telefono" class="form-label">Teléfono:</label>
+                <input type="date" class="form-control form-control-sm" id="telefono">
               </div>
               <div class="mb-3 col-md-6">
-                <label for="carrera" class="form-label">Carreras:</label>
-                <select name="carrera" id="carrera" class="form-select form-select-sm">
-                  <option value="">Seleccione</option>
-                </select>
+                <label for="direccion" class="form-label">Dirección:</label>
+                <input type="date" class="form-control form-control-sm" id="direccion">
               </div>
             </div>
-
-            <div class="mb-3">
-              <label for="fotografia">Fotografía:</label>
-              <input type="file" id="fotografia" accept=".jpg" class="form-control form-control-sm">
+            <div class="row">
+              <div class="mb-3 col-md-6">
+                <label for="tipocontrato" class="form-label">Tipo contrato:</label>
+                <select name="escuela" id="tipocontrato" class="form-select form-select-sm">
+                  <option value="">Seleccione</option>
+                  <option value="C">Completo</option>
+                  <option value="P">Parcial</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="cv">Curriculum Vitae:</label>
+                <input type="file" id="cv" name= "cv" accept=".pdf" class="form-control form-control-sm">
+              </div>
             </div>
           </form>
-
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-sm btn-primary" id="guardar-estudiante">Guardar</button>
+          <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"><i class="fa-solid fa-circle-xmark"></i>Cerrar</button>
+          <button type="button" class="btn btn-outline-succes btn-sm" id="guardar-colaborador"><i class="fa-solid fa-floppy-disk"></i>Guadar</button>
         </div>
       </div>
     </div>
@@ -167,14 +169,14 @@
         });
       }
 
-      function obtenerEscuelas(){
+      function obtenerCargos(){
         $.ajax({
-          url: '../controllers/escuela.controller.php',
+          url: '../controllers/cargo.controller.php',
           type: 'POST',
           data: {operacion: 'listar'},
           dataType: 'text',
           success: function (result){
-            $("#escuela").html(result);
+            $("#cargo").html(result);
           }
         });
       }
@@ -226,48 +228,33 @@
         });
       }
 
-      function mostrarEstudiantes(){
+      function mostrarColaboradores(){
         $.ajax({
-          url: '../controllers/estudiante.controller.php',
+          url: '../controllers/colaborador.controller.php',
           type: 'POST',
           data: {operacion: 'listar'},
           dataType: 'text',
           success: function(result){
-            $("#tabla-estudiantes tbody").html(result);
+            $("#tabla-colaboradores tbody").html(result);
           }
         });
       }
 
-      $("#guardar-estudiante").click(preguntarRegistro);
+      $("#guardar-colaborador").click(preguntarRegistro);
 
       //Al cambiar una escuela, se actualizará las carreras
-      $("#escuela").change(function (){
-        const idescuelaFiltro = $(this).val();
 
-        $.ajax({
-          url: '../controllers/carrera.controller.php',
-          type: 'POST',
-          data: {
-            operacion     : 'listar',
-            idescuela     : idescuelaFiltro
-          },
-          dataType: 'text',
-          success: function(result){
-            $("#carrera").html(result);
-          }
-        });
-      });
 
       //Predeterminamos un control dentro del modal
-      $("#modal-estudiante").on("shown.bs.modal", event => {
+      $("#modal-colaborador").on("shown.bs.modal", event => {
         $("#apellidos").focus();
 
         obtenerSedes();
-        obtenerEscuelas();
+        obtenerCargos();
       });
 
       //Funciones de carga automática
-      mostrarEstudiantes();
+      mostrarColaboradores();
 
     });
   </script>
