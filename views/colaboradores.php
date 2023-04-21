@@ -244,7 +244,25 @@
 
       //Al cambiar una escuela, se actualizará las carreras
 
-
+      //eliminar
+      $("#tabla-colaboradores tbody").on("click",".eliminar",function(){
+        const idcolaboradorEliminar = $(this).data("idcolaborador");
+        if (confirm("¿Estas seguro deproceder?")){
+          $.ajax({
+            url :'../controllers/colaborador.controller.php', 
+            type :'POST',
+            data : {
+              operacion    :'eliminar',
+              idcolaborador: idcolaboradorEliminar
+            },
+            succeso : function(result){
+              if (result == ""){
+                mostrarColaboradores();
+              }
+            }
+          });
+        }
+      });
       //Predeterminamos un control dentro del modal
       $("#modal-colaborador").on("shown.bs.modal", event => {
         $("#apellidos").focus();

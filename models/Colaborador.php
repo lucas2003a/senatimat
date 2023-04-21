@@ -43,4 +43,48 @@ class Colaborador extends Conexion{
         }
 
     }
+
+    public function obtenerColaborador($idcolaborador = 0){
+        try{
+            $consulta = $this->accesoBD->prepare("CALL spu_obtener_cv(?)");
+            $consulta->execute(array($idcolaborador));
+            $registro = $consulta->fetch();
+
+            return $registro;
+        }catch (Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function eliminarColaborador($idcolaborador = 0){
+        try{
+            $consulta = $this->accesoBD->prepare("CALL spu_colaboradores_eliminar()");
+            $consulta->execute(array($idcolaborador));
+        }
+        catch(Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    public function actualizarCurso($datos = []){
+        try{
+            $consulta = $this->accesoBD->prepare("CALL spu_colaboradores_actualizar(?,?,?,?,?,?,?,?,?)");
+            $consulta->execute(
+                array(
+                    $datos['idcolaborador'],
+                    $datos['apellidos'],
+                    $datos['nombres'],
+                    $datos['idcargo'],
+                    $datos['idsede'],
+                    $datos['telefono'],
+                    $datos['direccion'],
+                    $datos['tipocontrato'],
+                    $datos['cv']
+                )
+            );
+        }
+        catch (Exception $e){
+            die($e->getMessage());
+        }
+    }
 }

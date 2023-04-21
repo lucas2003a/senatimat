@@ -157,14 +157,46 @@ CALL spu_colaboradores_registrar('Francia Minaya','Jhon Edward',1,1, '956834915'
 SELECT * FROM colaboradores;
 
 
+-- ACTUALIZAR COLABORADORES
+
+DELIMITER $$
+CREATE PROCEDURE spu_colaboradores_actualizar
+(
+	IN idcolaborador_			INT,
+	IN apellidos_ 				VARCHAR(40),
+	IN nombres_ 				VARCHAR(40),
+	IN idcargo_				INT,
+	IN idsede_ 				INT,
+	IN telefono_ 				CHAR(9),
+	IN direccion_				VARCHAR(40),
+	IN tipocontrato_			CHAR(1),
+	IN cv_ 					VARCHAR(100)
+)
+BEGIN
+	UPDATE colaboradores SET
+		apellidos = apellidos_,
+		nombres = nombres_,
+		idcargo = idcargo_,
+		idsede = idsede_,
+		telefono = telefono_,
+		direccion = direccion_,
+		tipocontrato = tipocontrato_,
+		cv = cv_
+	WHERE idcolaborador = idcolaborador_;
+END$$
+
+SELECT *FROM colaboradores WHERE idcolaborador = 6;
+CALL spu_colaboradores_actualizar(6,'Atuncar','Lucas',4,4,'90367492','av.Snta Rosa #541','C','');
 --  PROCEDIMIENTO PARA ELIMINAR COLABORADORES 
 
 DELIMITER $$
 CREATE PROCEDURE spu_colaboradores_eliminar(IN idcolaborador_ INT)
 BEGIN
-	DELETE FROM colaboradores WHERE idcolaborador = idcolaborador_;
+	UPDATE colaboradores
+		SET estado = '0'
+		WHERE idcolaborador = idcolaborador_;
 END $$
-CALL spu_colaboradores_eliminar(3);
+CALL spu_colaboradores_eliminar(12);
 SELECT * FROM colaboradores;
 
 

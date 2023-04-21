@@ -62,7 +62,7 @@ if ($_POST['operacion']){
                 if ($registro['cv'] == ''){
                     echo $botonNulo;
                 }else{
-                    echo "<a href='../pdf/documents/{$registro['cv']} data-lightbox='{$registro['idcolaborador']}' data-title='{$datosColaborador}'' class='btn btn-sm btn-warning' target='_blank'><i class='fa-solid fa-file'></i></a>";
+                    echo "  <a href='../views/pdf/documents/{$registro['cv']}' target='_blank' class='btn btn-warning btn-sm'><i class='bi bi-filetype-pdf'></i></a>";
                 }
                     
                 echo"
@@ -74,6 +74,30 @@ if ($_POST['operacion']){
             }    
         }
         
+    }
+
+    if ($_POST['operacion'] == 'eliminar'){
+            $colaborador->eliminarColaborador($_POST['idcolaborador']);    
+    }
+
+    if ($_POST['operacion'] == 'obtenercolaborador'){
+        $registro = $registro->obtenerColaborador($_POST['idcolaborador']);
+        echo json_encode($registro);
+    }
+
+    if ($_POST['operacion'] == 'actualizar'){
+        $datosForm = [
+            "idcolaborador"      => $_POST['idcolaborador'],
+            "apellidos"          => $_POST['apellidos'],
+            "nombres"            => $_POST['nombres'],
+            "idcargo"            => $_POST['idcargo'],
+            "idsede"             => $_POST['idsede'],
+            "telefono"           => $_POST['telefono'],
+            "direccion"          => $_POST['direccion'],
+            "tipocontrato"       => $_POST['tipocontrato'],
+            "cv"                 => '',
+        ];
+        $colaborador->actualizarCurso($datosForm);
     }
 
     if ($_POST['operacion'] == 'obtener_cv'){} 
