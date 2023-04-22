@@ -187,17 +187,23 @@ END$$
 
 SELECT *FROM colaboradores WHERE idcolaborador = 6;
 CALL spu_colaboradores_actualizar(6,'Atuncar','Lucas',4,4,'90367492','av.Snta Rosa #541','C','');
---  PROCEDIMIENTO PARA ELIMINAR COLABORADORES 
 
-DELIMITER $$
+
+-- RECUPERAR
+DELIMITER$$
+CREATE PROCEDURE spu_colaboradores_recuperar_id(IN idcolaborador_ INT)
+BEGIN
+	SELECT * FROM colaboradores WHERE idcolaborador = idcolaborador_;
+END$
+CALL spu_colaboradores_recuperar_id(4)
+
+-- PROCEDIMIENTO PARA ELIMINARCOLABORADORES
+DELIMITER$$
 CREATE PROCEDURE spu_colaboradores_eliminar(IN idcolaborador_ INT)
 BEGIN
-	UPDATE colaboradores
-		SET estado = '0'
-		WHERE idcolaborador = idcolaborador_;
-END $$
-CALL spu_colaboradores_eliminar(12);
-SELECT * FROM colaboradores;
+	DELETE FROM colaboradores WHERE idcolaborador = idcolaborador_;
+END$
+CALL spu_colaboradores_eliminar(2)
 
 
 -- PROCEDIMIENTO PARA OBTENER CV DEL COLABORADOR 
@@ -207,7 +213,7 @@ CREATE PROCEDURE spu_obtener_cv (IN idcolaborador_ INT)
 BEGIN
   SELECT cv FROM colaboradores WHERE idcolaborador = idcolaborador_;
 END $$
-CALL spu_obtener_cv(1);
+CALL spu_obtener_cv(14);
 
 
 -- PROCEDIMIENTO PARA LSITAR CARGO DE LOS COLABORADORES 
@@ -219,3 +225,38 @@ BEGIN
 END $$
 CALL spu_cargos_listar;
 
+
+-- USSUARIOS
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_login(IN nombreusuario_ VARCHAR(30))
+BEGIN
+	SELECT idusuario,
+		nombreusuario,
+		claveacceso,
+		apellidos,
+		nombres,
+		nivelacceso
+	FROM usuarios
+	WHERE nombreusuario = nombreusuario_ AND estado = '1';
+END$$
+
+ CALL spu_usuarios_login('Jhon');
+
+ --   REGISTRAR
+
+DELIMITER $$
+CREATE PROCEDURE usuario_registrar
+(
+	IN nombreusuario_	VARCHAR(30),
+	IN claveacceso_		VARCHAR(30),
+	IN apellidos_		VARCHAR(30),
+	IN nombres_		VARCHAR(30)
+)
+BEGIN
+	INSERT INTO usuarios (nombreusuario,claveacceso,apellidos,nombres)VALUES
+		(nombreusuario_,claveacceso_,apellidos_,nombres_);
+END $$
+
+CALL usuario_registrar('PIeri','SENATI','Atuncar','Piero')
+
+SELECT*FROM usuarios;

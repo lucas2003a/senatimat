@@ -25,7 +25,7 @@
 <body>
   
   <!-- Modal trigger button -->
-  <button type="button" class="btn btn-success btn-md mt-3 ms-5" data-bs-toggle="modal" data-bs-target="#modal-colaborador">
+  <button type="button" class="btn btn-success btn-md mt-3 ms-5" id="abrir-modal" data-bs-toggle="modal" data-bs-target="#modal-colaborador">
     Registro Colaboradores
   </button>
 
@@ -157,6 +157,9 @@
   <script>
     $(document).ready(function (){
       
+      let datosNuevos = true;
+      let idcolaboradoractualizar = -1;
+
       function obtenerSedes(){
         $.ajax({
           url: '../controllers/sede.controller.php',
@@ -227,6 +230,7 @@
           }
         });
       }
+       $("#guardar-colaborador").click(preguntarRegistro);
 
       function mostrarColaboradores(){
         $.ajax({
@@ -240,14 +244,13 @@
         });
       }
 
-      $("#guardar-colaborador").click(preguntarRegistro);
-
+    
       //Al cambiar una escuela, se actualizará las carreras
 
       //eliminar
       $("#tabla-colaboradores tbody").on("click",".eliminar",function(){
         const idcolaboradorEliminar = $(this).data("idcolaborador");
-        if (confirm("¿Estas seguro deproceder?")){
+        if (confirm("¿Estas seguro de proceder?")){
           $.ajax({
             url :'../controllers/colaborador.controller.php', 
             type :'POST',
@@ -255,7 +258,7 @@
               operacion    :'eliminar',
               idcolaborador: idcolaboradorEliminar
             },
-            succeso : function(result){
+            success : function(result){
               if (result == ""){
                 mostrarColaboradores();
               }
@@ -263,6 +266,40 @@
           });
         }
       });
+
+      //editar en proceso
+      /*$("tabla-colaboradores tbody").on("click",".editar",function (){
+        const idcolaboradorEditar = $(this).data("idcolaborador");
+        
+        $.ajax({
+          url :'../controllers/colaborador.controller.php',
+          type :'POST',
+          data :{
+            operacion     : 'obtenercolaborador',
+            idcolaborador :   idcolaboradorEditar
+          },
+          dataType :'JSON',
+          succes :function(result){
+            cosole.log(result);
+
+            datosNuevos = false;
+
+            idcolaboradoractualizar = result["idcolaborador"];
+            $("#apellidos").val(result["apellidos"]);
+            $("#nombres").val(result["nombres"]);
+            $("#idcargo").val(result["cargo"]);
+            $("#idsede").val(result["sede"]);
+            $("#telefono").val(result["telefono"]);
+            $("#direccion").val(result["direccion"]);
+            $("#tipocontrato").val(result["tipocontrato"]);
+            $("#cv").val(result["cv"]);
+
+            $("#modal-titulo").html("Actualizar datos de colaboradores");
+
+            $("modal-colaborador").html("show");
+          },
+        });
+      });*/
       //Predeterminamos un control dentro del modal
       $("#modal-colaborador").on("shown.bs.modal", event => {
         $("#apellidos").focus();

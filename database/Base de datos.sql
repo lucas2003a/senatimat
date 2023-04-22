@@ -115,4 +115,34 @@ INSERT INTO colaboradores
 	('Bendezu Cardenas', 'Jose', 5, 1, '954837297', 'Calle Las Gardenias N° 120', 'C', NULL);
 
 
+
+
+--       USUARIOS 
+CREATE TABLE usuarios
+(
+	idusuario  		INT AUTO_INCREMENT PRIMARY KEY,
+	nombreusuario		VARCHAR(30)	NOT NULL,
+	claveacceso		VARCHAR(30)	NOT NULL,
+	apellidos		VARCHAR(30)	NOT NULL,
+	nombres			VARCHAR(30)	NOT NULL,
+	nivelacceso		CHAR(1)		DEFAULT	'A',
+	estado			CHAR(1)		DEFAULT '1',
+	fecharegistro		DATETIME	NOT NULL DEFAULT NOW(),
+	fechaupdate		DATETIME	NULL,
+	CONSTRAINT uk_nombreusuario_usa UNIQUE (nombreusuario)
+)ENGINE = INNODB;
+
+INSERT INTO usuarios (nombreusuario,claveacceso,apellidos,nombres)VALUES
+	('Jhon','123456','Francia Minaya','Jhon Edward'),
+	('Lucas2003','SENATI','Atuncar Valerio','Lucas Alfredo');
+	
+SELECT*FROM usuarios;
+/*delimiter$$
+create procedure spu_recuperar(in idcolaborador_ int)
+begin
+	UPDATE colaboradores
+	set estado = '1'
+	where idcolaborador = idcolaborador_;
+end$$ 
+call spu_recuperar(12)*/
 SELECT * FROM colaboradores;

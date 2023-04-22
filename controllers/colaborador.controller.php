@@ -2,7 +2,7 @@
 
 require_once '../models/Colaborador.php';
 
-if ($_POST['operacion']){
+if (isset($_POST['operacion'])){
 
     $colaborador = new Colaborador();
 
@@ -33,6 +33,7 @@ if ($_POST['operacion']){
 
         $colaborador->registrarColaborador($datosGuardar);
     }
+
 
     if ($_POST['operacion'] == 'listar'){
         $data = $colaborador->listarColaborador();
@@ -76,12 +77,35 @@ if ($_POST['operacion']){
         
     }
 
-    if ($_POST['operacion'] == 'eliminar'){
-            $colaborador->eliminarColaborador($_POST['idcolaborador']);    
+    if ($_POST['operacion'] == 'obtener_cv'){
+
+            $idcolaborador = $_POST['idcolaborador'];
+
+            $archivoCv = $colaborador->obtenerColaborador($idcolaborador);
+            
+            echo $archivoCv;
     }
 
-    if ($_POST['operacion'] == 'obtenercolaborador'){
-        $registro = $registro->obtenerColaborador($_POST['idcolaborador']);
+    if ($_POST['operacion'] == 'eliminar'){
+
+        $idcolaborador =  $_POST['idcolaborador'];
+
+        $registro = $colaborador->obtenerColaborador($idcolaborador);
+        
+        
+        if ($registro['cv']) {
+            $rutaArchivo = '../views/pdf/documents/' . $registro['cv'];
+
+            if (file_exists($rutaArchivo))  {
+
+                unlink($rutaArchivo);
+            }
+        }
+        $colaborador->eliminarColaborador($idcolaborador);
+    }
+
+    if ($_POST['operacion'] == 'obtenerColaborador'){
+        $registro = $colaborador->getColaborador($_POST['idcolaborador']);
         echo json_encode($registro);
     }
 
@@ -100,5 +124,4 @@ if ($_POST['operacion']){
         $colaborador->actualizarCurso($datosForm);
     }
 
-    if ($_POST['operacion'] == 'obtener_cv'){} 
 }

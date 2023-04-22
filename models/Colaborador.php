@@ -44,6 +44,8 @@ class Colaborador extends Conexion{
 
     }
 
+
+
     public function obtenerColaborador($idcolaborador = 0){
         try{
             $consulta = $this->accesoBD->prepare("CALL spu_obtener_cv(?)");
@@ -51,17 +53,33 @@ class Colaborador extends Conexion{
             $registro = $consulta->fetch();
 
             return $registro;
-        }catch (Exception $e){
+        }
+        catch(Exception $e){
             die($e->getMessage());
         }
     }
 
     public function eliminarColaborador($idcolaborador = 0){
         try{
-            $consulta = $this->accesoBD->prepare("CALL spu_colaboradores_eliminar()");
+
+            $consulta = $this->accesoBD->prepare("CALL spu_colaboradores_eliminar(?)");
             $consulta->execute(array($idcolaborador));
+
+            return true;
         }
-        catch(Exception $e){
+        catch (Exception $e){
+            die($e->getMessage());
+        }
+    } 
+
+    public function getColaborador($idcolaborador = 0){
+        try{
+            $consulta = $this->accesoBD->prepare("CALL spu_colaboradores_recuperar_id(?)");
+            $consulta->execute(array($idcolaborador));
+            
+            return $consulta->fetch(PDO::FETCH_ASSOC);
+        }
+        catch (Exception $e){
             die($e->getMessage());
         }
     }
