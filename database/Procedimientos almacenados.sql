@@ -240,7 +240,7 @@ BEGIN
 	WHERE nombreusuario = nombreusuario_ AND estado = '1';
 END$$
 
- CALL spu_usuarios_login('Jhon');
+ CALL spu_usuarios_login('lucas2005');
 
  --   REGISTRAR
 
@@ -260,3 +260,16 @@ END $$
 CALL usuario_registrar('PIeri','SENATI','Atuncar','Piero')
 
 SELECT*FROM usuarios;
+ 
+ --  RECUPERAR USUARIOS POR ID
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_recuperar_id(IN idusuario_ INT) 
+BEGIN
+	SELECT * FROM usuarios WHERE idusuario = idusuario_;
+END $$
+ 
+ CALL spu_usuarios_recuperar_id();
+ 
+ UPDATE usuarios SET
+	claveacceso = '$2y$10$127A9Zu5CXlig4ckIicczes9YzgVFN1/vZVvnCloNPlRWaYODJHSu'
+	WHERE idusuario = 4;

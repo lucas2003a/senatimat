@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Conexxion.php';
+require_once 'Conexion.php';
 
 class Usuario extends Conexion{
     private $accesoBD;
@@ -9,7 +9,7 @@ class Usuario extends Conexion{
         $this->accesoBD = parent::getConexion();
     }
 
-    public function iniciarSesion($nombreUsuario =""){
+    public function iniciarSesion($nombreUsuario){
         try{
             $consulta = $this->accesoBD->prepare("CALL spu_usuarios_login(?)");
             $consulta->execute(array($nombreUsuario));
@@ -25,10 +25,10 @@ class Usuario extends Conexion{
             $consulta = $this->accesoBD->prepare("CALL usuario_registrar(?,?,?,?)");
             $consulta->execute(
                 array(
-                    $datos['nombreusuario'],
-                    $datos['claveacceso'],
-                    $datos['apellidos'],
-                    $datos['nombre'],
+                    $datos["nombreusuario"],
+                    $datos["claveacceso"],
+                    $datos["apellidos"],
+                    $datos["nombres"]
                 )
             );
         }
