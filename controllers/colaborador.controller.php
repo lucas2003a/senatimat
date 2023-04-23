@@ -58,8 +58,7 @@ if (isset($_POST['operacion'])){
                         <td>{$registro['direccion']}</td>
                         <td>{$registro['tipocontrato']}</td>
                         <td>
-                            <a href='#' data-idcolaborador='{$registro['idcolaborador']}' class='btn btn-danger btn-sm eliminar'><i class='fa-solid fa-trash-can'></i></a>
-                            <a href='#' data-idcolaborador='{$registro['idcolaborador']}' class='btn btn-info btn-sm editar'><i class='fa-solid fa-pencil'></i></a>";
+                            <a href='#' data-idcolaborador='{$registro['idcolaborador']}' class='btn btn-danger btn-sm eliminar'><i class='fa-solid fa-trash-can'></i></a>";
                 if ($registro['cv'] == ''){
                     echo $botonNulo;
                 }else{
@@ -107,21 +106,6 @@ if (isset($_POST['operacion'])){
     if ($_POST['operacion'] == 'obtenerColaborador'){
         $registro = $colaborador->getColaborador($_POST['idcolaborador']);
         echo json_encode($registro);
-    }
-
-    if ($_POST['operacion'] == 'actualizar'){
-        $datosForm = [
-            "idcolaborador"      => $_POST['idcolaborador'],
-            "apellidos"          => $_POST['apellidos'],
-            "nombres"            => $_POST['nombres'],
-            "idcargo"            => $_POST['idcargo'],
-            "idsede"             => $_POST['idsede'],
-            "telefono"           => $_POST['telefono'],
-            "direccion"          => $_POST['direccion'],
-            "tipocontrato"       => $_POST['tipocontrato'],
-            "cv"                 => '',
-        ];
-        $colaborador->actualizarCurso($datosForm);
     }
 
 }

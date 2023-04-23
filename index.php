@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION['login']) && $_SESSION['login']){
-  header('Location:');
+  header('Location:views/listas.php');
 }
 ?>
 <!doctype html>

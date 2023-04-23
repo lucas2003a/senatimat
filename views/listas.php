@@ -1,9 +1,9 @@
 <?php
-/*session_start();
+session_start();
 
-if (isset($_SESSION['login']) && $_SESSION['login']){
-  header('Location:../');
-}*/
+if (!isset($_SESSION['login']) || $_SESSION['login'] == false){
+  header('Location:../index.php');
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -59,6 +59,30 @@ if (isset($_SESSION['login']) && $_SESSION['login']){
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    $(document).ready(function(){
+      function preguntarSalida(){
+        Swal.fire({
+          icon: 'question',
+          title: 'Matrículas',
+          text: '¿Está seguro de registrar al estudiante?',
+          footer: 'Desarrollado con PHP',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#3498DB',
+          showCancelButton: true,
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          //Identificando acción del usuario
+          if (result.isConfirmed){
+            registrarEstudiante();
+          }
+        });
+      }
+    });
   </script>
 </body>
 

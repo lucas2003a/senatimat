@@ -1,9 +1,9 @@
 <?php
-/*session_start();
+session_start();
 
-if (isset($_SESSION['login']) && $_SESSION['login']){
-  header('Location:./index.php');
-}*/
+if (!isset($_SESSION['login']) || $_SESSION['login'] == false){
+  header('Location:../index.php');
+}
 ?>
 <!doctype html>
 <html lang="es">
@@ -292,40 +292,6 @@ if (isset($_SESSION['login']) && $_SESSION['login']){
         }
       });
     }); 
-
-      //editar en proceso
-      /*$("tabla-colaboradores tbody").on("click",".editar",function (){
-        const idcolaboradorEditar = $(this).data("idcolaborador");
-        
-        $.ajax({
-          url :'../controllers/colaborador.controller.php',
-          type :'POST',
-          data :{
-            operacion     : 'obtenercolaborador',
-            idcolaborador :   idcolaboradorEditar
-          },
-          dataType :'JSON',
-          succes :function(result){
-            cosole.log(result);
-
-            datosNuevos = false;
-
-            idcolaboradoractualizar = result["idcolaborador"];
-            $("#apellidos").val(result["apellidos"]);
-            $("#nombres").val(result["nombres"]);
-            $("#idcargo").val(result["cargo"]);
-            $("#idsede").val(result["sede"]);
-            $("#telefono").val(result["telefono"]);
-            $("#direccion").val(result["direccion"]);
-            $("#tipocontrato").val(result["tipocontrato"]);
-            $("#cv").val(result["cv"]);
-
-            $("#modal-titulo").html("Actualizar datos de colaboradores");
-
-            $("modal-colaborador").html("show");
-          },
-        });
-      });*/
       //Predeterminamos un control dentro del modal
       $("#modal-colaborador").on("shown.bs.modal", event => {
         $("#apellidos").focus();

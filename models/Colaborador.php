@@ -83,26 +83,4 @@ class Colaborador extends Conexion{
             die($e->getMessage());
         }
     }
-
-    public function actualizarCurso($datos = []){
-        try{
-            $consulta = $this->accesoBD->prepare("CALL spu_colaboradores_actualizar(?,?,?,?,?,?,?,?,?)");
-            $consulta->execute(
-                array(
-                    $datos['idcolaborador'],
-                    $datos['apellidos'],
-                    $datos['nombres'],
-                    $datos['idcargo'],
-                    $datos['idsede'],
-                    $datos['telefono'],
-                    $datos['direccion'],
-                    $datos['tipocontrato'],
-                    $datos['cv']
-                )
-            );
-        }
-        catch (Exception $e){
-            die($e->getMessage());
-        }
-    }
 }
