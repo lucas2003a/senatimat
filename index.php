@@ -1,9 +1,9 @@
 <?php
-/*session_start();
+session_start();
 
 if (isset($_SESSION['login']) && $_SESSION['login']){
-  header('Location:views/listas.php');
-}*/
+  header('Location:');
+}
 ?>
 <!doctype html>
 <html lang="es">
