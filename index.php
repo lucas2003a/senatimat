@@ -1,9 +1,9 @@
 <?php
-session_start();
+/*session_start();
 
 if (isset($_SESSION['login']) && $_SESSION['login']){
-  header('Location:views/index.php');
-}
+  header('Location:views/listas.php');
+}*/
 ?>
 <!doctype html>
 <html lang="es">
@@ -34,7 +34,7 @@ if (isset($_SESSION['login']) && $_SESSION['login']){
             <form action="">
               <div class="mb-3">
                 <label for="usuario" class="form-label">Usuario:</label>
-                <input type="text" id="usuario" class="form-control form-control-sm" autfocus>
+                <input type="text" id="usuario" class="form-control form-control-sm" autofocus>
               </div>
               <div class="mb-3">
                 <label for="clave" class="form-label">Contraseña:</label>
@@ -43,7 +43,7 @@ if (isset($_SESSION['login']) && $_SESSION['login']){
             </form>
           </div>
           <div class="card-footer text-muted">
-            <button type="button" class="btn btn-sm btn-success" id="iniciar-sesion">iniciar sesion:</button>
+            <button type="button" id="iniciar-sesion"class="btn btn-sm btn-success" >Iniciar sesion</button>
           </div>
         </div>
         <!-- FIN DE CARD-->
@@ -62,6 +62,8 @@ if (isset($_SESSION['login']) && $_SESSION['login']){
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>  
 
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     $(document).ready(function(){
 
@@ -71,7 +73,7 @@ if (isset($_SESSION['login']) && $_SESSION['login']){
 
         if (usuario !="" && clave != ""){
           $.ajax({
-            url : '../controllers/usuario.controller.php',
+            url : 'controllers/usuario.controller.php',
             type : 'POST',
             data : {
               operacion     :   'login',
@@ -82,16 +84,22 @@ if (isset($_SESSION['login']) && $_SESSION['login']){
             success  : function (result){
               console.log(result);
               if (result["status"]){
-                window.location.href ="views/colaborador.php";
+                window.location.href ="views/listas.php";
               }else{
-                alert(result["mensaje"]);
+
+                Swal.fire({
+                  icon: 'error',
+                  title: (result["mensaje"]),
+                  text: 'Has cometido un error!',
+                  footer: '<a href="">¿Poqué sucedió esto?</a>'
+                })
               }
             }
           });
         }
       }
       $("#iniciar-sesion").click(iniciarSesion);
-    })
+    });
   </script>
 </body>
 

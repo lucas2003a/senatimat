@@ -1,3 +1,10 @@
+<?php
+/*session_start();
+
+if (isset($_SESSION['login']) && $_SESSION['login']){
+  header('Location:../');
+}*/
+?>
 <!doctype html>
 <html lang="es">
 
@@ -25,27 +32,15 @@
 <body>
   
   <!-- Modal trigger button -->
-  <button type="button" class="btn btn-success btn-md mt-3 ms-5" id="abrir-modal" data-bs-toggle="modal" data-bs-target="#modal-colaborador">
-    Registro Colaboradores
-  </button>
+
 
   <div class="container">
     <div class="card">
       <div class="card-body">
         <div class="table-responsibe">
           <table class="table table-striped table-sm" id="tabla-colaboradores">
-            <colgroup>
-              <col wdth = "2%">
-              <col wdth = "15%">
-              <col wdth = "10%">
-              <col wdth = "11%">
-              <col wdth = "12%">
-              <col wdth = "13%">
-              <col wdth = "14%">
-              <col wdth = "10%">
-              <col wdth = "10%">
-            </colgroup>
             <thead>
+              <h1>Tabla de colaboradores</h1>
               <tr>
                 <th>#</th>
                 <th>Apellidos</th>
@@ -61,6 +56,20 @@
             <tbody>
 
             </tbody>
+            <footer>
+              <div class="row">
+                <div class="col-md-4">
+                  <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-colaborador">
+                    <i class="bi bi-person-vcard-fill">Registro colaboradores</i></button>
+                </div>
+                <div class="col-md-4">
+                  <a href="estudiantes.php" class="btn btn-outline-success"><i class="bi bi-person-vcard">Estudiantes</i></a>
+                </div>
+                <div class="col-md-4"> 
+                  <a href="../controllers/usuario.controller.php?operacion=finalizar" stye="text-decoration: none" class="btn btn-outline-danger"><i class="bi bi-box-arrow-left">Cerrar sesión</i></a>
+                </div>
+              </div> 
+            </footer>
           </table>
         </div>    
       </div>    
@@ -208,7 +217,13 @@
           success: function(){
             $("#formulario-colaboradores")[0].reset();
             $("#modal-colaborador").modal("hide");
-            alert("Guardado correctamente");
+            Swal.fire({
+              position: 'midle-center',
+              icon: 'success',
+              title: 'Accion exitosa',
+              showConfirmButton: false,
+              timer: 1500
+            })
           }
         });
       }
@@ -250,7 +265,17 @@
       //eliminar
       $("#tabla-colaboradores tbody").on("click",".eliminar",function(){
         const idcolaboradorEliminar = $(this).data("idcolaborador");
-        if (confirm("¿Estas seguro de proceder?")){
+        Swal.fire({
+          title: '¿Estás seguro de eliminarlo?',
+          text: "El cambio no será reversible!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, si quiero!',
+          cancelButtonText:'No, no quiero'
+        }).then((result) => {
+          if (result.isConfirmed) {
           $.ajax({
             url :'../controllers/colaborador.controller.php', 
             type :'POST',
@@ -266,6 +291,7 @@
           });
         }
       });
+    }); 
 
       //editar en proceso
       /*$("tabla-colaboradores tbody").on("click",".editar",function (){

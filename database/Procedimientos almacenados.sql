@@ -75,6 +75,16 @@ BEGIN
 END $$
 CALL spu_obtener_fotografia(1);
 
+-- PTOCEDIMIENTO RECUPERAR ESTUDIANTE
+
+DELIMITER $$ 
+CREATE PROCEDURE spu_estudiantes_recuperar_id(IN idestudiante_ INT)
+BEGIN
+	SELECT * FROM estudiantes WHERE idestudiante = idestudiante_;
+END $$
+
+CALL spu_estudiantes_recuperar_id(1)
+
 
 -- PROCEDIMIENTO PARA LISTAR SEDES PARA ESTUDIANTE Y COLABORADORES 
 

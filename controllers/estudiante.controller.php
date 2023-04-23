@@ -63,8 +63,8 @@ if (isset($_POST['operacion'])){
             <td>{$registro['fechanacimiento']}</td>
             <td>{$registro['carrera']}</td>
             <td>
-              <a href='#' class='btn btn-sm btn-danger'><i class='bi bi-trash3'></i></a>
-              <a href='#' class='btn btn-sm btn-info'><i class='bi bi-pencil-fill'></i></a>";
+              <a href='#' data-idestudiante='{$registro['idestudiante']}' class='btn btn-danger btn-sm eliminar'><i class='fa-solid fa-trash-can'></i></a>
+              <a href='#' data-idestudiante='{$registro['idestudiante']}' class='btn btn-info btn-sm editar'><i class='fa-solid fa-pencil'></i></a>";
         
         //La segunda parte a RENDERIZAR, es el botón VER FOTOGRAFÍA
         if ($registro['fotografia'] == ''){
@@ -83,5 +83,38 @@ if (isset($_POST['operacion'])){
       }
     }
   } //Fin operacion=listar
+
+  if ($_POST['operacion'] == 'obtener_foto'){
+    
+      $idestudiante = $_POST['idestudiante'];
+
+      $archivoCv = $estudiante->obtenerEstudiante($idestudiante);
+
+      echo $archivoCv;
+  }
+
+  if ($_POST['operacion'] == 'eliminar'){
+
+        $idestudiante = $_POST['idestudiante'];
+
+        $registro = $estudiante->obtenerEstudiante($idestudiante);
+
+        if ($registro['fotografia']) {
+          $rutaArchivo = '../views/img/fotografias/' . $registro['fotografia'];
+
+          if (file_exists($rutaArchivo)) {
+
+              unlink($rutaArchivo);
+          }
+        }
+        $estudiante->eliminarEstudiante($idestudiante);
+  }
+
+  if ($_POST['operacion'] == 'obtenerEstudiante'){
+
+        $registro = $estudiante->getEstudiante($_POST['idestudiante']);
+        echo json_encode($registro);
+  }
+
 
 }

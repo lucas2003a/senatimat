@@ -1,3 +1,10 @@
+<?php
+/*session_start();
+
+if (isset($_SESSION['login']) && $_SESSION['login']){
+  header('Location:../');
+}*/
+?>
 <!doctype html>
 <html lang="es">
 
@@ -14,6 +21,9 @@
   <!-- Iconos de Bootstrap 5 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
+  <!--ÌCONOS FONTAWESOME-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <!-- Lightbox CSS -->
   <link rel="stylesheet" href="../dist/lightbox2/src/css/lightbox.css">
 
@@ -22,30 +32,45 @@
 <body>
   
   <!-- Modal trigger button -->
-  <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-estudiante">
-    Launch
-  </button>
+  
 
   <div class="container">
     <table id="tabla-estudiantes" class="table table-striped table-sm">
       <thead>
-        <tr>
-          <th>#</th>
-          <th>Apellidos</th>
-          <th>Nombres</th>
-          <th>Tipo</th>
-          <th>Documento</th>
-          <th>Nacimiento</th>
-          <th>Carrera</th>
-          <th>Operaciones</th>
-        </tr>
+        <h1>Tabla de estudiantes<h1>
+          <tr>
+            <th>#</th>
+            <th>Apellidos</th>
+            <th>Nombres</th>
+            <th>Tipo</th>
+            <th>Documento</th>
+            <th>Nacimiento</th>
+            <th>Carrera</th>
+            <th>Operaciones</th>
+          </tr>
+          
       </thead>
       <tbody>
 
       </tbody>
+      <footer>
+          <div class="row">
+            <div class="col-md-4">
+              <button type="button" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-estudiante">
+                <i class="bi bi-person-vcard">Registro estudiantes</i>
+              </button>
+            </div>
+            <div class="col-md-4">
+              <a href="colaboradores.php" class="btn btn-outline-success"><i class="bi bi-person-vcard-fill">Colaboradores</i></a>
+            </div>
+            <div class="col-md-4">
+              <a href="../controllers/usuario.controller.php?operacion=finalizar" style="text-decoration: none;" class="btn btn-outline-danger"><i class="bi bi-box-arrow-left">Cerrar sesión</i></a>
+            </div>
+          </div> 
+      </footer>
     </table>
   </div>
-  
+ 
   <!-- Modal Body -->
   <div class="modal fade" id="modal-estudiante" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
@@ -192,11 +217,35 @@
           success: function(){
             $("#formulario-estudiantes")[0].reset();
             $("#modal-estudiante").modal("hide");
-            alert("Guardado correctamente");
+            Swal.fire({
+              position: 'midle-center',
+              icon: 'success',
+              title: 'Acción exitosa',
+              showConfirmButton: false,
+              timer: 1500
+            })
           }
         });
       }
 
+      function preguntarRegistro(){
+        Swal.fire({
+          icon: 'question',
+          title: 'Matrículas',
+          text: '¿Está seguro de registrar al estudiante?',
+          footer: 'Desarrollado con PHP',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#3498DB',
+          showCancelButton: true,
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          //Identificando acción del usuario
+          if (result.isConfirmed){
+            registrarEstudiante();
+          }
+        });
+      }
+      
       function preguntarRegistro(){
         Swal.fire({
           icon: 'question',
@@ -246,6 +295,39 @@
           }
         });
       });
+
+
+      //ELIMINAR
+      $("#tabla-estudiantes tbody").on("click",".eliminar",function(){
+        const idestudianteEliminar = $(this).data("idestudiante");
+        Swal.fire({
+          title: '¿Estás seguro de eliminarlo?',
+          text: "El cambio no será reversible!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, si quiero!',
+          cancelButtonText:'No, no quiero'
+        }).then((result) => {
+          if (result.isConfirmed) {
+          $.ajax({
+            url : '../controllers/estudiante.controller.php',
+            type: 'POST',
+            data : {
+              operacion : 'eliminar',
+              idestudiante : idestudianteEliminar
+            },
+            success : function(result){
+              if (result == ""){
+                mostrarEstudiantes();
+              }
+            }
+          });
+        }
+      });
+    });  
+        
 
       //Predeterminamos un control dentro del modal
       $("#modal-estudiante").on("shown.bs.modal", event => {

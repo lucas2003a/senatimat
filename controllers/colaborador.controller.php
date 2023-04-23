@@ -45,7 +45,7 @@ if (isset($_POST['operacion'])){
             
             foreach($data as $registro){
                 
-                $datosColaborador = $registro['apellidos']  .   '   '   .   $registro['nombres'];
+                $datosColaborador = $registro['apellidos']  . ' ' .   $registro['nombres'];
 
                 echo"
                     <tr>
