@@ -282,4 +282,4 @@ END $$
  
  UPDATE usuarios SET
 	claveacceso = '$2y$10$127A9Zu5CXlig4ckIicczes9YzgVFN1/vZVvnCloNPlRWaYODJHSu'
-	WHERE idusuario = 4;
+	WHERE idusuario = 3;

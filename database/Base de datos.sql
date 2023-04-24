@@ -68,7 +68,6 @@ CREATE TABLE estudiantes (
 
 INSERT INTO estudiantes 
 	(apellidos, nombres, nrodocumento, fechanacimiento, idcarrera, idsede) VALUES
-	('Hernandez Yeren', 'Yorghet Fernanda', '72159736','2003-07-28', 1, 2),
 	('Muñoz Quispe', 'Alonso Enrique','12356789','2003-07-18',4, 2),	
 	('Pomachari Canto', 'Yareli Melissa', '60534815', '2003-12-24', 7, 3),
 	('Nolberto Flores', 'Keysi', '159346789', '2004-01-04', 9, 4);
